@@ -6,7 +6,6 @@
     <title>Login</title>
 </head>
 <body>
-    <center>
         <h1>Iniciar sesión para Acudiente</h1>
         <form action="loguearse_acudiente.php" method="POST">
             <label for="">Ingrese su correo electrónico:</label>
@@ -19,6 +18,5 @@
             <br><br>
             <button type="submit">Ingresar</button>
         </form>
-    </center>
 </body>
 </html>

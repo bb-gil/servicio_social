@@ -6,8 +6,7 @@
     <title>Login</title>
 </head>
 <body>
-    <center>
-        <h1>Iniciar sesión para administradores</h1>
+    <h1>Iniciar sesión para administradores</h1>
         <form action="loguearse_admin.php" method="POST">
             <label for="">Ingrese su correo electrónico:</label>
             <br><br>
@@ -19,6 +18,5 @@
             <br><br>
             <button type="submit">Ingresar</button>
         </form>
-    </center>
 </body>
 </html>
