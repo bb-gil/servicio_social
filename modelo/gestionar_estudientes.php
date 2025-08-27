@@ -163,6 +163,6 @@ ini_set('display_errors','1');
     <hr>
     <a href="ver_estudiantes.php">Ver Lista de Estudiantes</a>
     <br>
-    <a href="pagina_administrador.php">Volver al Panel de Administrador</a>
+    <a href="pagina_admin.php">Volver al Panel de Administrador</a>
 </body>
 </html>

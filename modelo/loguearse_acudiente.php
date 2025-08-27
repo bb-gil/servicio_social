@@ -1,4 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors','1');
+?>
+
+<?php
     require "conexion.php";
 
     // iniciar sesion para guardar los datos del usuario
@@ -17,7 +22,7 @@
     {
         $_SESSION['username'] = $usuario;
         //redirigir el usuario a su pagina
-        header("location: ../pagina_acudiente.php");
+        header("location: ../pagina_padre.php");
 
         /*echo "El usuario existe en la BD <br>";
         echo $resultado ['email'];*/
@@ -27,3 +32,4 @@
         echo "El usuario no existe, o hay un error en el nombre de usuario o la contraseña";
     }
 ?>
+

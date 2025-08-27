@@ -1,3 +1,8 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors','1');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +11,7 @@
     <title>Login</title>
 </head>
 <body>
+    <center>
         <h1>Iniciar sesión para Estudiantes</h1>
         <form action="loguearse_estudiante.php" method="POST">
             <label for="">Ingrese su correo electrónico:</label>
@@ -18,5 +24,6 @@
             <br><br>
             <button type="submit">Ingresar</button>
         </form>
+    </center>
 </body>
 </html>

@@ -1,23 +1,57 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors','1');
+?>
+
+<?php
+    require 'modelo/conexion.php';
+
+    session_start();
+
+    if(isset($_SESSION['username']))
+    {
+        $nombre_usuario = $_SESSION['username'];
+        
+        // Obtener datos del administrador
+        $query = "SELECT nombre, apellidos FROM administrador WHERE correo = '$nombre_usuario'";
+        $resultado = mysqli_query($conexion, $query);
+        $datos = mysqli_fetch_array($resultado);
+    }
+    else
+    {
+        // Si no hay sesión, redirigir al index
+        header("location: index.php");
+    }
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>pagina admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador</title>
 </head>
 <body>
-    <h1>Bienvenido admin</h1>
+    <h1>Panel de Administrador</h1>
     <hr>
-    <a href="gestion_estudiantes.php">Gestionar Estudiante</a>
+    <?php
+        if(isset($datos['nombre']) && isset($datos['apellidos'])) {
+            echo 'Bienvenido/a: ' . $datos['nombre'] . ' ' . $datos['apellidos'] . ' (' . $nombre_usuario . ')';
+        } else {
+            echo 'Usuario: ' . $nombre_usuario;
+        }
+    ?>
     <hr>
-    <a href="gestion_acudiente.php">Gestionar Acudiente</a>
+    <h2>Opciones de Administrador</h2>
+    <ul>
+        <li><a href="gestionar_estudientes.php">Gestionar Estudiantes</a></li>
+        <li><a href="gestionar_acudientes.php">Gestionar Acudientes</a></li>
+        <li><a href="gestionar_administradores.php">Gestionar Administradores</a></li>
+        <li><a href="gestionar_supervisores.php">Gestionar Supervisores</a></li>
+        <li><a href="gestionar_grupos.php">Gestionar_grupos</a></li>
+        <li><a href="#">Soporte PDF</a></li>
+    </ul>
     <hr>
-    <a href="gestion_supervisor.php">Gestionar Supervisor</a>
-    <hr>
-    <a href="pedidos_ayuda.php">Pedidos de ayuda</a>
-    <hr>
-    <a href="soporte_pdf.php">soporte PDF</a>
-    <hr>
-    <a href="modelo/cerrar_sesion.php">cerrar_sesion</a>
+    <a href="modelo/cerrar_sesion.php">Cerrar Sesión</a>
 </body>
 </html>
