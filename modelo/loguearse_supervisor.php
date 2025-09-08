@@ -9,10 +9,10 @@ ini_set('display_errors','1');
     // iniciar sesion para guardar los datos del usuario
     session_start();
 
-    $usuario = $_POST['email'];
-    $contraseña = $_POST['contraseña'];
+    $usuario = $_POST['correo'];
+    $password = $_POST['password'];
 
-    $query_1 = "SELECT correo, COUNT(*) AS contar FROM supervisor WHERE correo = '$usuario' AND contraseña = '$contraseña'";
+    $query_1 = "SELECT correo, COUNT(*) AS contar FROM supervisor WHERE correo = '$usuario' AND contraseña = '$password'";
 
     $consulta = mysqli_query($conexion, $query_1) or trigger_error("Error en la consulta MYSQL: " + mysqli_error($conexion));
 
@@ -22,7 +22,7 @@ ini_set('display_errors','1');
     {
         $_SESSION['username'] = $usuario;
         //redirigir el usuario a su pagina
-        header("location: ../pagina_administrador.php");
+        header("location: ../pagina_profesor.php");
 
         /*echo "El usuario existe en la BD <br>";
         echo $resultado ['email'];*/
@@ -31,4 +31,3 @@ ini_set('display_errors','1');
     {
         echo "El usuario no existe, o hay un error en el nombre de usuario o la contraseña";
     }
-?>

@@ -12,7 +12,7 @@ ini_set('display_errors','1');
     {
         $nombre_usuario = $_SESSION['username'];
         
-        $query = "SELECT nombre, apellidos FROM estudiante WHERE correo = '$nombre_usuario'";
+        $query = "SELECT nombre, apellidos FROM administrador WHERE correo = '$nombre_usuario'";
         $resultado = mysqli_query($conexion, $query);
         $datos = mysqli_fetch_array($resultado);
     }
@@ -27,11 +27,11 @@ ini_set('display_errors','1');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Estudiante</title>
+    <title>Panel Administrador</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #002855, #004a99);
+            background: linear-gradient(135deg, #013220, #025939);
             color: white;
             margin: 0;
             padding: 0;
@@ -49,27 +49,33 @@ ini_set('display_errors','1');
         ul {
             list-style: none;
             padding: 0;
-            margin: 20px 0;
-            text-align: center;
+            max-width: 400px;
+            width: 90%;
         }
 
-        li {
-            background: rgba(255, 255, 255, 0.15);
+        ul li {
             margin: 10px 0;
-            padding: 10px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
         }
 
-        li:hover {
-            background: rgba(255, 255, 255, 0.25);
+        ul li a {
+            display: block;
+            background: rgba(0, 50, 32, 0.9);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0px 3px 6px rgba(0,0,0,0.4);
+            transition: all 0.2s ease;
+        }
+
+        ul li a:hover {
+            background: #038c5a;
             transform: translateY(-2px);
         }
 
         a {
-            color: #a3d4ff;
+            color: #a3ffcc;
             text-decoration: none;
-            font-weight: bold;
         }
 
         a:hover {
@@ -82,25 +88,10 @@ ini_set('display_errors','1');
             width: 100%;
             max-width: 600px;
         }
-
-        .logout {
-            margin-top: auto;
-            padding: 15px;
-            background: rgba(255, 0, 0, 0.2);
-            border-radius: 8px;
-        }
-
-        .logout a {
-            color: #ffcccc;
-        }
-
-        .logout a:hover {
-            color: white;
-        }
     </style>
 </head>
 <body>
-    <h1>Portal de Estudiante</h1>
+    <h1>Panel de Administrador</h1>
     <hr>
     <?php
         if(isset($datos['nombre']) && isset($datos['apellidos'])) {
@@ -110,15 +101,16 @@ ini_set('display_errors','1');
         }
     ?>
     <hr>
-    <h2>Mis Actividades</h2>
+    <h2>Opciones de Administrador</h2>
     <ul>
-        <li><a href="#">Ver Mis Horas de Servicio</a></li>
-        <li><a href="#">Enviar Solicitudes de Servicio</a></li>
-        <li><a href="#">Consultar Estado de Solicitudes</a></li>
+        <li><a href="gestionar_estudientes.php">Gestionar Estudiantes</a></li>
+        <li><a href="gestionar_acudientes.php">Gestionar Acudientes</a></li>
+        <li><a href="gestionar_administradores.php">Gestionar Administradores</a></li>
+        <li><a href="gestionar_supervisores.php">Gestionar Supervisores</a></li>
+        <li><a href="gestionar_grupos.php">Gestionar Grupos</a></li>
+        <li><a href="#">Soporte PDF</a></li>
     </ul>
     <hr>
-    <div class="logout">
-        <a href="modelo/cerrar_sesion.php">Cerrar Sesión</a>
-    </div>
+    <a href="modelo/cerrar_sesion.php">Cerrar Sesión</a>
 </body>
 </html>

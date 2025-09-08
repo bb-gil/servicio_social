@@ -22,8 +22,14 @@ ini_set('display_errors','1');
 
     $mensaje = '';
 
-    $query_sedes = "SELECT id_sede, nombre_sede FROM sede ORDER BY nombre_sede";
-    $resultado_sedes = mysqli_query($conexion, $query_sedes);
+    $query_acudientes = "SELECT id_acudiente, nombre, apellidos FROM acudiente ORDER BY nombre, apellidos";
+    $resultado_acudientes = mysqli_query($conexion, $query_acudientes);
+
+    $query_grupos = "SELECT g.id_grupo, g.nombre, gr.nombre as nombre_grado 
+                     FROM grupo g 
+                     LEFT JOIN grado gr ON g.id_grado = gr.id_grado 
+                     ORDER BY g.nombre";
+    $resultado_grupos = mysqli_query($conexion, $query_grupos);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['agregar'])) {
         $nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
@@ -32,22 +38,33 @@ ini_set('display_errors','1');
         $telefono = mysqli_real_escape_string($conexion, $_POST['telefono']);
         $correo = mysqli_real_escape_string($conexion, $_POST['correo']);
         $contrasena = mysqli_real_escape_string($conexion, $_POST['contrasena']);
-        $id_sede = mysqli_real_escape_string($conexion, $_POST['id_sede']);
-        $dependencia = mysqli_real_escape_string($conexion, $_POST['dependencia']);
-        
-        $verificar = "SELECT * FROM supervisor WHERE correo = '$correo'";
-        $resultado_verificar = mysqli_query($conexion, $verificar);
-        
-        if (mysqli_num_rows($resultado_verificar) > 0) {
-            $mensaje = "El correo electrónico ya está registrado";
+        $id_acudiente = mysqli_real_escape_string($conexion, $_POST['id_acudiente']);
+        $id_grupo = mysqli_real_escape_string($conexion, $_POST['id_grupo']);
+
+        if (empty($id_grupo)) {
+            $mensaje = "Debe seleccionar un grupo.";
         } else {
-            $insertar = "INSERT INTO supervisor (nombre, apellidos, doc_identidad, telefono, correo, contraseña, id_sede, dependencia) 
-                        VALUES ('$nombre', '$apellidos', '$doc_identidad', '$telefono', '$correo', '$contrasena', '$id_sede', '$dependencia')";
-            
-            if (mysqli_query($conexion, $insertar)) {
-                $mensaje = "Supervisor agregado correctamente";
+            $verificar = "SELECT * FROM estudiante WHERE correo = '$correo'";
+            $resultado_verificar = mysqli_query($conexion, $verificar);
+
+            if (mysqli_num_rows($resultado_verificar) > 0) {
+                $mensaje = "El correo electrónico ya está registrado";
             } else {
-                $mensaje = "Error al agregar supervisor: " . mysqli_error($conexion);
+                $insertar = "INSERT INTO estudiante (nombre, apellidos, doc_identidad, telefono, correo, contraseña, id_acudiente) 
+                             VALUES ('$nombre', '$apellidos', '$doc_identidad', '$telefono', '$correo', '$contrasena', '$id_acudiente')";
+
+                if (mysqli_query($conexion, $insertar)) {
+                    $id_estudiante = mysqli_insert_id($conexion);
+
+                    $ano_actual = date('Y');
+                    $insertar_grupo = "INSERT INTO grupo_estudiante (id_grupo, año, id_estudiante) 
+                                       VALUES ('$id_grupo', '$ano_actual', '$id_estudiante')";
+                    mysqli_query($conexion, $insertar_grupo);
+
+                    $mensaje = "Estudiante registrado correctamente";
+                } else {
+                    $mensaje = "Error al registrar el estudiante";
+                }
             }
         }
     }
@@ -58,7 +75,7 @@ ini_set('display_errors','1');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Supervisor</title>
+    <title>Agregar Estudiante</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -118,6 +135,10 @@ ini_set('display_errors','1');
             transform: translateY(-2px);
         }
 
+        button:active {
+            transform: translateY(0);
+        }
+
         .mensaje {
             background: rgba(255, 255, 255, 0.15);
             padding: 10px;
@@ -144,7 +165,7 @@ ini_set('display_errors','1');
     </style>
 </head>
 <body>
-    <h1>Agregar Supervisor</h1>
+    <h1>Agregar Estudiante</h1>
     <hr>
     <?php
         if(isset($datos['nombre']) && isset($datos['apellidos'])) {
@@ -161,7 +182,7 @@ ini_set('display_errors','1');
         </div>
     <?php endif; ?>
 
-    <h2>Agregar Nuevo Supervisor</h2>
+    <h2>Agregar Nuevo Estudiante</h2>
     <form method="POST" action="">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required>
@@ -181,24 +202,31 @@ ini_set('display_errors','1');
         <label for="contrasena">Contraseña:</label>
         <input type="password" id="contrasena" name="contrasena" required>
 
-        <label for="id_sede">Sede:</label>
-        <select id="id_sede" name="id_sede" required>
-            <option value="">Seleccione una sede</option>
-            <?php while($sede = mysqli_fetch_assoc($resultado_sedes)): ?>
-                <option value="<?php echo $sede['id_sede']; ?>">
-                    <?php echo $sede['nombre_sede']; ?>
+        <label for="id_acudiente">Acudiente:</label>
+        <select id="id_acudiente" name="id_acudiente" required>
+            <option value="">Seleccione un acudiente</option>
+            <?php while($acudiente = mysqli_fetch_assoc($resultado_acudientes)): ?>
+                <option value="<?php echo $acudiente['id_acudiente']; ?>">
+                    <?php echo $acudiente['nombre'] . ' ' . $acudiente['apellidos']; ?>
                 </option>
             <?php endwhile; ?>
         </select>
 
-        <label for="dependencia">Dependencia:</label>
-        <input type="text" id="dependencia" name="dependencia" required>
+        <label for="id_grupo">Grupo:</label>
+        <select id="id_grupo" name="id_grupo">
+            <option value="">Seleccione un grupo</option>
+            <?php while($grupo = mysqli_fetch_assoc($resultado_grupos)): ?>
+                <option value="<?php echo $grupo['id_grupo']; ?>">
+                    <?php echo $grupo['nombre'] . ' - ' . $grupo['nombre_grado']; ?>
+                </option>
+            <?php endwhile; ?>
+        </select>
 
-        <button type="submit" name="agregar">Agregar Supervisor</button>
+        <button type="submit" name="agregar">Agregar Estudiante</button>
     </form>
     
     <hr>
-    <a href="ver_supervisores.php">Ver Lista de Supervisores</a>
+    <a href="ver_estudiantes.php">Ver Lista de Estudiantes</a>
     <br>
     <a href="pagina_administrador.php">Volver al Panel de Administrador</a>
 </body>

@@ -32,4 +32,3 @@ ini_set('display_errors','1');
         echo "El usuario no existe, o hay un error en el nombre de usuario o la contraseña";
     }
 ?>
-
