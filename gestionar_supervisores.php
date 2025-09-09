@@ -198,7 +198,7 @@ ini_set('display_errors','1');
     </form>
     
     <hr>
-    <a href="ver_supervisores.php">Ver Lista de Supervisores</a>
+    <a href="ver_supervisor.php">Ver Lista de Supervisores</a>
     <br>
     <a href="pagina_administrador.php">Volver al Panel de Administrador</a>
 </body>

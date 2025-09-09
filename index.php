@@ -10,7 +10,7 @@ ini_set('display_errors','1');
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Servicio Social</title>
     <style>
-        /* Fondo animado que garantiza visibilidad de los 4 colores */
+
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
@@ -129,6 +129,14 @@ ini_set('display_errors','1');
             max-width: 150px;
         }
 
+        .img-section {
+            display: block;
+            margin: 15px auto;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+        }
+
         @media (max-width: 600px) {
             .modal-content { margin: 12% 10px; padding: 16px; }
             h1 { font-size: 1.6rem; }
@@ -149,11 +157,14 @@ ini_set('display_errors','1');
         <div class="modal-content">
             <span class="close" id="closeModal" aria-label="Cerrar">&times;</span>
             <img src="img/escudo_colegio.png" alt="Escudo del Colegio" class="escudo">
+            
             <h2 id="modalTitle">¿Qué es el Servicio Social?</h2>
+            <img src="img/servicio-social.png" alt="Servicio Social" class="img-section">
             <p>
                 El Servicio Social Estudiantil Obligatorio es una actividad formativa que involucra a los estudiantes en proyectos 
                 que beneficien a la comunidad, complementando la formación académica con experiencias prácticas de compromiso social, 
-                responsabilidad y trabajo en equipo.
+                responsabilidad y trabajo en equipo.  
+                Además, fortalece competencias ciudadanas, fomenta la solidaridad y prepara a los jóvenes para enfrentar retos sociales reales.
             </p>
 
             <h3>Marco Legal</h3>
@@ -177,20 +188,29 @@ ini_set('display_errors','1');
             </p>
 
             <h3>Actividades Comunes</h3>
-            <p>
-                - Proyectos ambientales (siembra de árboles, reciclaje, campañas de limpieza).<br>
-                - Alfabetización y tutorías escolares.<br>
-                - Apoyo a comunidades vulnerables y hogares de cuidado.<br>
-                - Organización de eventos culturales y deportivos.<br>
-                - Participación en campañas de salud y prevención.
-            </p>
+            <img src="img/entrada.jpg" alt="Entrada del Colegio" class="img-section">
+            <ul>
+                <li>Proyectos ambientales (siembra de árboles, reciclaje, campañas de limpieza).</li>
+                <li>Alfabetización y tutorías escolares.</li>
+                <li>Apoyo a comunidades vulnerables y hogares de cuidado.</li>
+                <li>Organización de eventos culturales y deportivos.</li>
+                <li>Participación en campañas de salud y prevención.</li>
+                <li>Actividades de protección animal y rescate de fauna.</li>
+                <li>ayuda en actividades hechas por profesores u supervisores.</li>
+                <li>labor social en actividades comunes de la institucion como lo es porteria</li>
+            </ul>
 
+            <h3>colegio san jose de guanenta y servicio social</h3>
+            <p>
+                 La historia del servicio social en Colombia no está directamente ligada a la fundación del colegio en 1824, ya que el concepto moderno de servicio social como disciplina profesional y como herramienta de formación integral para los estudiantes es más reciente. 
             <h3>Beneficios</h3>
             <p>
                 - Desarrolla liderazgo y habilidades sociales.<br>
                 - Fortalece el sentido de pertenencia.<br>
                 - Permite aplicar conocimientos académicos en contextos reales.<br>
-                - Fomenta el trabajo en equipo y la empatía.
+                - Fomenta el trabajo en equipo y la empatía.<br>
+                - Aumenta la conciencia social y ambiental.<br>
+                - Promueve la resolución pacífica de conflictos.
             </p>
         </div>
     </div>
