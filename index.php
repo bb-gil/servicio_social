@@ -1,244 +1,287 @@
-<?php
-error_reporting(E_ALL);
-ini_set('display_errors','1');
-?>
-
+<?php error_reporting(E_ALL); ini_set('display_errors','1'); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicio Social</title>
-    <style>
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg,
-                        #B8860B 20%,
-                        #308A24 30%,
-                        #2563EB 50%,
-                        #800000 60%,
-                        #B8860B 100%);
-            background-size: 200% 200%;
-            animation: gradientBG 12s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #308A24;
             color: white;
-            min-height: 100vh;
+            padding: 80px 20px;
+        }
+
+        .header-container {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        @keyframes gradientBG {
-            0%   { background-position: 0% 50%; }
-            25%  { background-position: 50% 50%; }
-            50%  { background-position: 100% 50%; }
-            75%  { background-position: 50% 50%; }
-            100% { background-position: 0% 50%; }
+        .header-text {
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
         }
 
-        h1 {
-            font-size: 2.2rem;
-            margin: 0 0 18px 0;
-            text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45);
+        .header-text h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
         }
 
-        .btn {
-            border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 10px;
-            transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
-            color: white;
-        }
-
-        .btn:active { transform: translateY(1px); }
-
-        .btn-info {
-            background: #000000ff;
-            box-shadow: 0 6px 14px rgba(8, 8, 8, 0.18);
-        }
-        .btn-info:hover {
-            background: #6d1010ff;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+        .header-text p {
+            font-size: 1.2rem;
         }
 
         .btn-login {
-            background: #000000ff;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
-        }
-        .btn-login:hover {
-            background: #0b920bff;
-            box-shadow: 0 8px 18px rgba(5, 5, 5, 0.22);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.65);
-        }
-
-        .modal-content {
-            background-color: #000000ff;
-            color: #ffffffff;
-            margin: 6% auto;
-            padding: 20px 22px;
-            border-radius: 10px;
-            max-width: 760px;
-            box-shadow: 0 8px 26px rgba(0,0,0,0.45);
-            text-align: justify;
-            border-top: 8px solid #308A24;
-        }
-
-        .close {
-            color: #800000;
-            float: right;
-            font-size: 28px;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 28px;
+            background: white;
+            color: #308A24;
             font-weight: bold;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .close:hover {
-            color: #c00000;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
 
-        .modal h2 {
-            margin-top: 0;
+        .btn-login:hover {
+            background: #256f1a;
+            color: white;
+        }
+
+        .header-img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 200px;
+        }
+
+        .header-img img {
+            max-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-img {
+                display: none; /* Oculta imágenes en móvil y tablet */
+            }
+
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .header-text p {
+                font-size: 1rem;
+            }
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
             color: #308A24;
         }
-        .modal h3 {
-            color: #2563EB;
-            margin-bottom: 6px;
+
+        section p {
+            text-align: justify;
+            margin-bottom: 20px;
         }
 
-        .escudo {
-            display: block;
-            margin: 0 auto 15px auto;
-            max-width: 150px;
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        .img-section {
-            display: block;
-            margin: 15px auto;
-            max-width: 100%;
+        .feature {
+            background: white;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        @media (max-width: 600px) {
-            .modal-content { margin: 12% 10px; padding: 16px; }
-            h1 { font-size: 1.6rem; }
-            .btn { width: 100%; max-width: 320px; }
+        .feature i {
+            font-size: 2rem;
+            color: #308A24;
+            margin-bottom: 10px;
+        }
+
+        .testimonios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .testimonio {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .testimonio:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .testimonio strong {
+            display: block;
+            margin-top: 10px;
+            text-align: right;
+            font-style: normal;
+            color: #308A24;
+        }
+
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .galeria img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .galeria img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            background: #308A24;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
-    <h1>Proyecto de Servicio Social</h1>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <!-- Imagen izquierda -->
+            <div class="header-img">
+                <img src="img/escudo_colegio.png" alt="Imagen izquierda">
+            </div>
 
-    <div>
-        <button class="btn btn-info" id="btnInfo">Ver Información del Proyecto</button>
-        <button class="btn btn-login" onclick="window.location.href='iniciar_sesion.php'">Iniciar Sesión</button>
-    </div>
+            <!-- Texto central -->
+            <div class="header-text">
+                <h1>Servicio Social Estudiantil</h1>
+                <p>Compromiso, solidaridad y formación integral para los jóvenes de Colombia.</p>
+                <a href="iniciar_sesion.php" class="btn-login"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+            </div>
 
-    <div id="infoModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-content">
-            <span class="close" id="closeModal" aria-label="Cerrar">&times;</span>
-            <img src="img/escudo_colegio.png" alt="Escudo del Colegio" class="escudo">
-            
-            <h2 id="modalTitle">¿Qué es el Servicio Social?</h2>
-            <img src="img/servicio-social.png" alt="Servicio Social" class="img-section">
-            <p>
-                El Servicio Social Estudiantil Obligatorio es una actividad formativa que involucra a los estudiantes en proyectos 
-                que beneficien a la comunidad, complementando la formación académica con experiencias prácticas de compromiso social, 
-                responsabilidad y trabajo en equipo.  
-                Además, fortalece competencias ciudadanas, fomenta la solidaridad y prepara a los jóvenes para enfrentar retos sociales reales.
-            </p>
-
-            <h3>Marco Legal</h3>
-            <p>
-                Regulada por la <strong>Ley 115 de 1994</strong> (art. 97) y la <strong>Resolución 4210 de 1996</strong>, que establece 
-                que los estudiantes de educación media deben realizar entre 80 y 120 horas de servicio social durante los grados 10° y 11°. 
-                También la complementan el <strong>Acuerdo 55 de 2002</strong> y el <strong>Acuerdo 282 de 2007</strong>.
-            </p>
-
-            <h3>Propósito</h3>
-            <p>
-                Fomentar valores como solidaridad, respeto, participación ciudadana, protección ambiental y buen uso del tiempo libre, 
-                además de fortalecer la identidad cultural y el compromiso social.
-            </p>
-
-            <h3>Historia</h3>
-            <p>
-                En Colombia, el Servicio Social se consolidó en el siglo XX como parte de políticas públicas para formar ciudadanos 
-                responsables y participativos. Con el tiempo, se adaptó a las necesidades sociales y educativas, manteniendo su objetivo 
-                de aportar al bienestar colectivo.
-            </p>
-
-            <h3>Actividades Comunes</h3>
-            <img src="img/entrada.jpg" alt="Entrada del Colegio" class="img-section">
-            <ul>
-                <li>Proyectos ambientales (siembra de árboles, reciclaje, campañas de limpieza).</li>
-                <li>Alfabetización y tutorías escolares.</li>
-                <li>Apoyo a comunidades vulnerables y hogares de cuidado.</li>
-                <li>Organización de eventos culturales y deportivos.</li>
-                <li>Participación en campañas de salud y prevención.</li>
-                <li>Actividades de protección animal y rescate de fauna.</li>
-                <li>ayuda en actividades hechas por profesores u supervisores.</li>
-                <li>labor social en actividades comunes de la institucion como lo es porteria</li>
-            </ul>
-
-            <h3>colegio san jose de guanenta y servicio social</h3>
-            <p>
-                 La historia del servicio social en Colombia no está directamente ligada a la fundación del colegio en 1824, ya que el concepto moderno de servicio social como disciplina profesional y como herramienta de formación integral para los estudiantes es más reciente. 
-            <h3>Beneficios</h3>
-            <p>
-                - Desarrolla liderazgo y habilidades sociales.<br>
-                - Fortalece el sentido de pertenencia.<br>
-                - Permite aplicar conocimientos académicos en contextos reales.<br>
-                - Fomenta el trabajo en equipo y la empatía.<br>
-                - Aumenta la conciencia social y ambiental.<br>
-                - Promueve la resolución pacífica de conflictos.
-            </p>
+            <!-- Imagen derecha -->
+            <div class="header-img">
+                <img src="img/servicio-social.png" alt="Imagen derecha">
+            </div>
         </div>
-    </div>
+    </header>
 
-    <script>
-        document.getElementById('btnInfo').addEventListener('click', function() {
-            document.getElementById('infoModal').style.display = 'block';
-            document.getElementById('closeModal').focus();
-        });
+    <!-- Info -->
+    <section>
+        <h2>¿Qué es el Servicio Social?</h2>
+        <p>
+            El <strong>Servicio Social Estudiantil Obligatorio</strong> es una actividad formativa regulada en Colombia
+            por la <b>Ley 115 de 1994</b> y la <b>Resolución 4210 de 1996</b>.  
+            Los estudiantes de educación media deben realizar entre 80 y 120 horas de servicio social durante los grados 10° y 11°.  
+            Su propósito es vincular a los jóvenes en actividades que beneficien a la comunidad, promoviendo valores como solidaridad,
+            responsabilidad, respeto y participación ciudadana.
+        </p>
 
-        document.getElementById('closeModal').addEventListener('click', function() {
-            document.getElementById('infoModal').style.display = 'none';
-        });
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-leaf"></i>
+                <h3>Medio Ambiente</h3>
+                <p>Campañas de reciclaje, reforestación y cuidado de espacios naturales.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-book"></i>
+                <h3>Educación</h3>
+                <p>Tutorías, apoyo en alfabetización y acompañamiento a estudiantes más pequeños.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3>Solidaridad</h3>
+                <p>Ayuda en hogares comunitarios, campañas de salud y apoyo a poblaciones vulnerables.</p>
+            </div>
+        </div>
+    </section>
 
-        window.addEventListener('click', function(event) {
-            let modal = document.getElementById('infoModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
+    <!-- Testimonios -->
+    <section>
+        <h2>Testimonios</h2>
+        <div class="testimonios">
+            <div class="testimonio">
+                "El servicio social me enseñó a trabajar en equipo y valorar las necesidades de los demás."
+                <strong>- Ana María, 11°</strong>
+            </div>
+            <div class="testimonio">
+                "Aprendí que pequeños gestos pueden transformar la vida de una persona."
+                <strong>- Carlos, 10°</strong>
+            </div>
+            <div class="testimonio">
+                "Me siento orgulloso de aportar a mi colegio y comunidad."
+                <strong>- Laura, 11°</strong>
+            </div>
+        </div>
+    </section>
 
-        window.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                let modal = document.getElementById('infoModal');
-                if (modal.style.display === 'block') modal.style.display = 'none';
-            }
-        });
-    </script>
+    <!-- Galería -->
+    <section>
+        <h2>Galería de Actividades</h2>
+        <div class="galeria">
+            <img src="img/banda.jpeg" alt="Actividad de reforestación">
+            <img src="img/servicio.jpeg" alt="Tutoría escolar">
+            <img src="img/pintura.jpg" alt="Campaña de limpieza">
+            <img src="img/entrada.jpg" alt="Actividad comunitaria">
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Colegio San José de Guanentá - Servicio Social</p>
+    </footer>
 
 </body>
 </html>

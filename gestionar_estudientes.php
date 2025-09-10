@@ -56,9 +56,10 @@ ini_set('display_errors','1');
                 if (mysqli_query($conexion, $insertar)) {
                     $id_estudiante = mysqli_insert_id($conexion);
 
-                    $ano_actual = date('Y');
+                    $ano_actual = date('Y-m-d');
                     $insertar_grupo = "INSERT INTO grupo_estudiante (id_grupo, año, id_estudiante) 
-                                       VALUES ('$id_grupo', '$ano_actual', '$id_estudiante')";
+                   VALUES ('$id_grupo', '$ano_actual', '$id_estudiante')";
+
                     mysqli_query($conexion, $insertar_grupo);
 
                     $mensaje = "Estudiante registrado correctamente";
